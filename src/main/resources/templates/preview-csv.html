@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>File Upload Status</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <span class="navbar-brand mb-0 h1">CSV2Table</span>
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/">Import CSV</a>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="col-10 mx-auto">
+        <h1>Data to Import</h1>
+        <!--display error if any-->
+        <div class="alert alert-danger" role="alert" th:if="${!status}">
+          <strong>Error:</strong>
+          <span th:text="${message}"></span>
+        </div>
+        <p>Number of Columns: <span th:text="${colLength}"></span></p>
+        <p>Column Headers: <span th:text="${headerList}"></span></p>
+        <!--display object list-->
+        <table class="table table-striped" th:if="${status}">
+          <thead>
+            <tr>
+              <th>Row #</th>
+              <th th:each="header, i : ${headerList}">
+                <span th:text="${header}"></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="csvRow, i : ${csvData}">
+              <th scope="row" th:text="${i.index + 1}"></th>
+              <td th:each="headerIndex, i: ${headerIndexList}">
+                <span th:text="${csvRow.retrieveColumnValue(headerIndex)}"></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

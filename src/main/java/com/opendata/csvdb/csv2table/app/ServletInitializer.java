@@ -1,4 +1,4 @@
-package com.opendata.csvdb.csv2table;
+package com.opendata.csvdb.csv2table.app;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
