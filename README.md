@@ -23,7 +23,7 @@ Still under ideation but some thoughts are:
 2. Import project into IntelliJ IDEA Community version.
 3. Refresh gradle tasks or run `./gradlew build` from command line.
 4. From IDEA - "Run" `Csv2tableApplication` to start embedded Tomcat webapp
-5. Access application in https://localhost:8080
+5. Access application in http://localhost:8080
 
 # Starter Project
 Created project from [Spring Initializr](https://start.spring.io/) with the following settings:
