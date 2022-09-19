@@ -52,7 +52,7 @@ public class FileUploadController {
                     headerIndexList.add(headerIndex);
                 }
 
-                // get column length
+                // get column and row length
                 int colLength = headers.length;
 
                 // use column position mapping
@@ -68,13 +68,21 @@ public class FileUploadController {
                         .build();
 
                 // convert `CsvToBean` object to list of model objects
-                List<CsvModel> csvData = csvToBean.parse();
+                List<CsvModel> csvDataFull = csvToBean.parse();
+                int rowLength = csvDataFull.size();
+
+                // check whether row length < 500, if not set max preview to 500 rows
+                int toIndex = rowLength < 500? rowLength: 500;
+
+                // trim down rows for preview
+                List<CsvModel> csvData = csvDataFull.subList(0,toIndex);
 
                 // save users list on model
                 model.addAttribute("csvData", csvData);
                 model.addAttribute("headerList", headerList);
                 model.addAttribute("headerIndexList", headerIndexList);
                 model.addAttribute("colLength", colLength);
+                model.addAttribute("rowLength",rowLength);
                 model.addAttribute("status", true);
 
             } catch (Exception ex) {

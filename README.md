@@ -6,7 +6,7 @@ There so many CSV files that are available on open data sites such as [Data.gov]
 Still under ideation but some thoughts are:
 * Learn SpringBoot and host a server web application using Spring's embedded tomcat and Thymeleaf templating.
 * Make CSV upload, preview and storing into a DB very seamless experience.
-* Generic data model that can handle upto 50 MB files and 200 columns in the CSV file.
+* Generic data model that can handle upto 100 MB files and 200 columns in the CSV file.
 * Based on each table created from a CSV file, automatically make the data available via a REST API or GraphQL interface.
 
 # Technologies and Tools
