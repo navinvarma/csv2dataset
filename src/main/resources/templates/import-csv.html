@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <title>CSV2Table</title>
+    <title>Import CSV</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -23,10 +23,14 @@
         </div>
     </nav>
     <div>
-        <ul>
-            <li><b>Import CSV</b> - Upload a new CSV file</li>
-            <li><b>Manage CSV</b> - Manage all existing CSV imports and their metadata</li>
-        </ul>
+        <form class="form" method="POST" th:action="@{/preview-csv}" enctype="multipart/form-data">
+            <div class="form-group m-3">
+                <label for="file">Select a CSV file</label>
+                <input type="file" name="file" class="form-control-file" id="file" accept=".csv">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Preview Data</button>
+        </form>
     </div>
 </div>
 </body>
