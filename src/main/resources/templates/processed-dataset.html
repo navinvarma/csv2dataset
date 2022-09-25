@@ -19,17 +19,20 @@
     <div th:insert="navbar"/>
     <div class="row">
         <div class="col-10 mx-auto">
-            <h1>Data to Import</h1>
+            <h1>Import Summary</h1>
             <!--display error if any-->
             <div class="alert alert-danger" role="alert" th:if="${!status}">
                 <strong>Error:</strong>
                 <span th:text="${message}"></span>
             </div>
-            <h2>Import Summary</h2>
             <p><b>Dataset Name:</b> <span th:text="${datasetName}"></span></p>
             <p><b>Number of Rows:</b> <span th:text="${numRows}"></span></p>
             <p><b>Number of Columns:</b> <span th:text="${numColumns}"></span></p>
             <p><b>Column Headers:</b> <span th:text="${columnHeaders}"></span></p>
+            <p><b>File Path:</b> <span th:text="${filePath}"></span></p>
+            <div class="alert alert-success" role="alert">
+                Dataset Imported Successfully!
+            </div>
             </div>
         </div>
     </div>

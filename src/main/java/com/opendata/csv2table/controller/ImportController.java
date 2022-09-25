@@ -4,6 +4,8 @@ import com.opencsv.CSVReader;
 import com.opendata.csv2table.model.CsvModel;
 import com.opendata.csv2table.model.ImportedDataset;
 import com.opendata.csv2table.service.Csv2TableService;
+import org.apache.commons.io.ByteOrderMark;
+import org.apache.commons.io.input.BOMInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 
@@ -38,23 +39,23 @@ public class ImportController {
         return "import-dataset";
     }
 
-    @GetMapping("/manage-dataset")
-    public String manageDataset() {
-        return "manage-dataset";
-    }
-
     @PostMapping("/process-dataset")
     public String processDataset(@RequestParam("datasetName") String datasetName,
                                  @RequestParam("datasetUrl") String datasetUrl,
                                  Model model) {
         try {
-            // save dataset to DB?
+            // update imported dataset data
+            currentImportedDataset.setDatasetName(datasetName);
+            currentImportedDataset.setDatasetUrl(datasetUrl);
+            // save dataset to Avro file
+            String filePath = csv2TableService.parseDataToAvro(currentImportedDataset);
+            currentImportedDataset.setFilePath(filePath);
 
-
-            model.addAttribute("datasetName", datasetName);
+            model.addAttribute("datasetName", currentImportedDataset.getDatasetName());
             model.addAttribute("columnHeaders", currentImportedDataset.getColumnHeaders());
             model.addAttribute("numColumns", currentImportedDataset.getNumColumns());
             model.addAttribute("numRows", currentImportedDataset.getNumRows());
+            model.addAttribute("filePath", currentImportedDataset.getFilePath());
             model.addAttribute("status", true);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -75,7 +76,10 @@ public class ImportController {
         } else {
 
             // parse CSV file
-            try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
+            try (Reader reader = new BufferedReader(
+                    new InputStreamReader(new BOMInputStream(file.getInputStream(), false, ByteOrderMark.UTF_8,
+                            ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_16LE,
+                            ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE)))) {
 
                 // re-initialize bean
                 currentImportedDataset = new ImportedDataset();
@@ -96,6 +100,7 @@ public class ImportController {
                 int numRows = csvData.size();
 
                 // save users list on model
+                currentImportedDataset.setDatasetName(file.getName());
                 currentImportedDataset.setCsvData(csvData);
                 currentImportedDataset.setColumnHeaders(columnHeaders);
                 currentImportedDataset.setNumColumns(numColumns);
@@ -113,7 +118,6 @@ public class ImportController {
                 model.addAttribute("status", false);
             }
         }
-
         return "preview-dataset";
     }
 }

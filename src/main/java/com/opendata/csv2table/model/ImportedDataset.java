@@ -12,6 +12,7 @@ public class ImportedDataset {
     private List<String> columnHeaders;
     private int numColumns;
     private int numRows;
+    private String filePath;
 
     public int getNumColumns() {
         return numColumns;
@@ -59,5 +60,14 @@ public class ImportedDataset {
 
     public void setColumnHeaders(List<String> columnHeaders) {
         this.columnHeaders = columnHeaders;
+    }
+
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

@@ -15,6 +15,10 @@ repositories {
     maven { url 'https://repo.spring.io/snapshot' }
 }
 
+configurations.all {
+    exclude module: 'slf4j-log4j12'
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'junit:junit:4.13.2'
@@ -23,6 +27,10 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'com.opencsv:opencsv:5.7.0'
+    implementation 'org.apache.spark:spark-core_2.13:3.2.2'
+    implementation 'org.apache.spark:spark-avro_2.13:3.2.1'
+    implementation 'org.apache.avro:trevni-avro:1.11.0'
+
 }
 
 tasks.named('test') {
