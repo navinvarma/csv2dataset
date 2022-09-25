@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Import CSV</title>
+    <title>Preview CSV Data</title>
     <!-- CSS only -->
     <link href="../static/css/csv2table.css" th:href="@{/css/csv2table.css}" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -16,24 +16,23 @@
 
 <body>
 <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">CSV2Table</span>
-        <div class="navbar-nav">
-            <a class="nav-item nav-link" href="/import-csv">Import CSV</a>
-            <a class="nav-item nav-link" href="/manage-csv">Manage CSV</a>
-        </div>
-    </nav>
-    <div>
-        <form class="form" method="POST" th:action="@{/preview-csv}" enctype="multipart/form-data">
-            <div class="form-group m-3">
-                <label for="file">Select a CSV file</label>
-                <input type="file" name="file" class="form-control-file" id="file" accept=".csv">
+    <div th:insert="navbar"/>
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <h1>Data to Import</h1>
+            <!--display error if any-->
+            <div class="alert alert-danger" role="alert" th:if="${!status}">
+                <strong>Error:</strong>
+                <span th:text="${message}"></span>
             </div>
-
-            <button type="submit" class="btn btn-primary">Preview Data</button>
-        </form>
+            <h2>Import Summary</h2>
+            <p><b>Dataset Name:</b> <span th:text="${datasetName}"></span></p>
+            <p><b>Number of Rows:</b> <span th:text="${numRows}"></span></p>
+            <p><b>Number of Columns:</b> <span th:text="${numColumns}"></span></p>
+            <p><b>Column Headers:</b> <span th:text="${columnHeaders}"></span></p>
+            </div>
+        </div>
     </div>
 </div>
 </body>
-
 </html>

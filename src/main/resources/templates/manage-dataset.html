@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Manage CSV Data</title>
+    <title>Manage Datasets</title>
     <!-- CSS only -->
+    <link href="../static/css/csv2table.css" th:href="@{/css/csv2table.css}" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
@@ -13,13 +14,7 @@
 </head>
 <body>
 <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">CSV2Table</span>
-        <div class="navbar-nav">
-            <a class="nav-item nav-link" href="/import-csv">Import CSV</a>
-            <a class="nav-item nav-link" href="/manage-csv">Manage CSV</a>
-        </div>
-    </nav>
+    <div th:insert="navbar"/>
     <div>
 
     </div>

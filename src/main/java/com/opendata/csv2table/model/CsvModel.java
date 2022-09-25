@@ -1,4 +1,4 @@
-package com.opendata.csvdb.csv2table.model;
+package com.opendata.csv2table.model;
 
 import com.opencsv.bean.CsvBindByPosition;
 

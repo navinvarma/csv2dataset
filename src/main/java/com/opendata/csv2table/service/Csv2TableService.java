@@ -1,11 +1,11 @@
-package com.opendata.csvdb.csv2table.service;
+package com.opendata.csv2table.service;
 
 import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
-import com.opendata.csvdb.csv2table.model.CsvModel;
+import com.opendata.csv2table.model.CsvModel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package com.opendata.csvdb.csv2table;
+package com.opendata.csv2table;
 
-import com.opendata.csvdb.csv2table.app.Csv2tableApplication;
+import com.opendata.csv2table.app.Csv2tableApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,12 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @SpringBootTest(classes = Csv2tableApplication.class)
 class Csv2tableApplicationTests {
 
-	@Test
-	void pageLoads(@Autowired WebTestClient webClient) {
-		webClient
-				.get().uri("/")
-				.exchange()
-				.expectStatus().isOk();
-	}
+    @Test
+    void pageLoads(@Autowired WebTestClient webClient) {
+        webClient
+                .get().uri("/")
+                .exchange()
+                .expectStatus().isOk();
+    }
 
 }

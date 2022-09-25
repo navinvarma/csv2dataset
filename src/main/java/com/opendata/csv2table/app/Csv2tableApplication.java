@@ -1,9 +1,9 @@
-package com.opendata.csvdb.csv2table.app;
+package com.opendata.csv2table.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"com.opendata.csvdb"})
+@SpringBootApplication(scanBasePackages = {"com.opendata"})
 public class Csv2tableApplication {
 
     public static void main(String[] args) {

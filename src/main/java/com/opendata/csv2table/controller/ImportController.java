@@ -1,8 +1,9 @@
-package com.opendata.csvdb.csv2table.controller;
+package com.opendata.csv2table.controller;
 
 import com.opencsv.CSVReader;
-import com.opendata.csvdb.csv2table.model.CsvModel;
-import com.opendata.csvdb.csv2table.service.Csv2TableService;
+import com.opendata.csv2table.model.CsvModel;
+import com.opendata.csv2table.model.Dataset;
+import com.opendata.csv2table.service.Csv2TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,23 +25,48 @@ public class ImportController {
     @Autowired
     Csv2TableService csv2TableService;
 
+    @Autowired
+    Dataset currentDataset;
+
     @GetMapping("/")
     public String index() {
         return "index";
     }
 
-    @GetMapping("/import-csv")
-    public String importCSV() {
-        return "import-csv";
+    @GetMapping("/import-dataset")
+    public String importDataset() {
+        return "import-dataset";
     }
 
-    @GetMapping("/manage-csv")
-    public String manageCSV() {
-        return "manage-csv";
+    @GetMapping("/manage-dataset")
+    public String manageDataset() {
+        return "manage-dataset";
     }
 
-    @PostMapping("/preview-csv")
-    public String previewCSV(@RequestParam("file") MultipartFile file, Model model) {
+    @PostMapping("/process-dataset")
+    public String processDataset(@RequestParam("datasetName") String datasetName,
+                                 @RequestParam("datasetUrl") String datasetUrl,
+                                 Model model) {
+        try {
+            // save dataset to DB?
+
+            
+            model.addAttribute("datasetName", datasetName);
+            model.addAttribute("columnHeaders", currentDataset.getColumnHeaders());
+            model.addAttribute("numColumns", currentDataset.getNumColumns());
+            model.addAttribute("numRows", currentDataset.getNumRows());
+            model.addAttribute("status", true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            model.addAttribute("message", "An error occurred while processing the CSV file.");
+            model.addAttribute("status", false);
+        }
+
+        return "processed-dataset";
+    }
+
+    @PostMapping("/preview-dataset")
+    public String previewDataSet(@RequestParam("file") MultipartFile file, Model model) {
 
         // validate file
         if (file.isEmpty()) {
@@ -50,6 +76,9 @@ public class ImportController {
 
             // parse CSV file
             try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
+
+                // re-initialize bean
+                currentDataset = new Dataset();
 
                 // build list of headers to display
                 CSVReader csvReader = new CSVReader(reader);
@@ -63,15 +92,19 @@ public class ImportController {
                 List<CsvModel> csvDataPreview = csv2TableService.parseDataToPreview(csvData);
 
                 // get column and row length
-                int colLength = columnHeaders.size();
-                int rowLength = csvData.size();
+                int numColumns = columnHeaders.size();
+                int numRows = csvData.size();
 
                 // save users list on model
+                currentDataset.setCsvData(csvData);
+                currentDataset.setColumnHeaders(columnHeaders);
+                currentDataset.setNumColumns(numColumns);
+                currentDataset.setNumRows(numRows);
                 model.addAttribute("csvDataPreview", csvDataPreview);
                 model.addAttribute("columnHeaders", columnHeaders);
                 model.addAttribute("genericColumnHeaders", genericColumnHeaders);
-                model.addAttribute("colLength", colLength);
-                model.addAttribute("rowLength", rowLength);
+                model.addAttribute("numColumns", numColumns);
+                model.addAttribute("numRows", numRows);
                 model.addAttribute("status", true);
 
             } catch (Exception ex) {
@@ -81,6 +114,6 @@ public class ImportController {
             }
         }
 
-        return "preview-csv";
+        return "preview-dataset";
     }
 }

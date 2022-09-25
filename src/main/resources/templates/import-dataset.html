@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CSV2Table</title>
+    <title>Import CSV</title>
     <!-- CSS only -->
     <link href="../static/css/csv2table.css" th:href="@{/css/csv2table.css}" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -17,10 +17,17 @@
 <body>
 <div class="container-fluid">
     <div th:insert="navbar"/>
-    <h2>Import Dataset</h2>
-
-    <h2>Preview Dataset</h2>
-    <img th:src="@{/img/Preview_Dataset.png}" height="50%" width="50%" border="3px"/>
+    <div>
+        <form method="POST" th:action="@{/preview-dataset}" enctype="multipart/form-data">
+            <div class="form-group p3">
+                <label for="file">Select a CSV file</label>
+                <input type="file" name="file" class="form-control" id="file" accept=".csv">
+            </div>
+            <div class="form-group p3">
+                <button type="submit" class="btn btn-primary">Preview Data</button>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 
