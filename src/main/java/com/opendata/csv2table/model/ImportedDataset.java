@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class Dataset {
+public class ImportedDataset {
     private String datasetName;
     private String datasetUrl;
     private List<CsvModel> csvData;

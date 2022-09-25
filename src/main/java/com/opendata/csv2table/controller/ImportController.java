@@ -2,7 +2,7 @@ package com.opendata.csv2table.controller;
 
 import com.opencsv.CSVReader;
 import com.opendata.csv2table.model.CsvModel;
-import com.opendata.csv2table.model.Dataset;
+import com.opendata.csv2table.model.ImportedDataset;
 import com.opendata.csv2table.service.Csv2TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class ImportController {
     Csv2TableService csv2TableService;
 
     @Autowired
-    Dataset currentDataset;
+    ImportedDataset currentImportedDataset;
 
     @GetMapping("/")
     public String index() {
@@ -50,11 +50,11 @@ public class ImportController {
         try {
             // save dataset to DB?
 
-            
+
             model.addAttribute("datasetName", datasetName);
-            model.addAttribute("columnHeaders", currentDataset.getColumnHeaders());
-            model.addAttribute("numColumns", currentDataset.getNumColumns());
-            model.addAttribute("numRows", currentDataset.getNumRows());
+            model.addAttribute("columnHeaders", currentImportedDataset.getColumnHeaders());
+            model.addAttribute("numColumns", currentImportedDataset.getNumColumns());
+            model.addAttribute("numRows", currentImportedDataset.getNumRows());
             model.addAttribute("status", true);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -78,7 +78,7 @@ public class ImportController {
             try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
 
                 // re-initialize bean
-                currentDataset = new Dataset();
+                currentImportedDataset = new ImportedDataset();
 
                 // build list of headers to display
                 CSVReader csvReader = new CSVReader(reader);
@@ -96,10 +96,10 @@ public class ImportController {
                 int numRows = csvData.size();
 
                 // save users list on model
-                currentDataset.setCsvData(csvData);
-                currentDataset.setColumnHeaders(columnHeaders);
-                currentDataset.setNumColumns(numColumns);
-                currentDataset.setNumRows(numRows);
+                currentImportedDataset.setCsvData(csvData);
+                currentImportedDataset.setColumnHeaders(columnHeaders);
+                currentImportedDataset.setNumColumns(numColumns);
+                currentImportedDataset.setNumRows(numRows);
                 model.addAttribute("csvDataPreview", csvDataPreview);
                 model.addAttribute("columnHeaders", columnHeaders);
                 model.addAttribute("genericColumnHeaders", genericColumnHeaders);
