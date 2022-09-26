@@ -1,12 +1,12 @@
-package com.opendata.csv2table.service;
+package com.csv2dataset.service;
 
+import com.csv2dataset.model.CsvModel;
+import com.csv2dataset.model.ImportedDataset;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
-import com.opendata.csv2table.model.CsvModel;
-import com.opendata.csv2table.model.ImportedDataset;
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaBuilder;
 import org.apache.avro.file.CodecFactory;

@@ -54,7 +54,7 @@ This project uses
 1. Git clone repo via https or SSH
 2. Import project into IntelliJ IDEA Community version.
 3. Refresh gradle tasks or run `./gradlew build` from command line.
-4. From IDEA - "Run" `Csv2tableApplication` to start embedded Tomcat webapp
+4. From IDEA - "Run" the main class `Csv2DatasetApplication` to start embedded Tomcat server.
 5. Access application in http://localhost:8080
 
 # Starter Project

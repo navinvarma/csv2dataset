@@ -1,6 +1,6 @@
-package com.opendata.csv2table.controller;
+package com.csv2dataset.controller;
 
-import com.opendata.csv2table.service.Csv2TableService;
+import com.csv2dataset.service.Csv2TableService;
 import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileReader;
 import org.apache.avro.generic.GenericDatumReader;

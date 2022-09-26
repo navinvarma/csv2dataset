@@ -1,9 +1,9 @@
-package com.opendata.csv2table.controller;
+package com.csv2dataset.controller;
 
+import com.csv2dataset.model.CsvModel;
+import com.csv2dataset.model.ImportedDataset;
+import com.csv2dataset.service.Csv2TableService;
 import com.opencsv.CSVReader;
-import com.opendata.csv2table.model.CsvModel;
-import com.opendata.csv2table.model.ImportedDataset;
-import com.opendata.csv2table.service.Csv2TableService;
 import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
