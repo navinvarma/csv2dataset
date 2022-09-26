@@ -32,11 +32,32 @@
     </div>
     <div th:if="${datasetSelected}">
         <h2><span th:text="${datasetSelected}"/></h2>
-        <h4>Fields</h4>
-        <ul th:each="field, i : ${fields}">
-            <li th:text="${field}"></li>
-
-        </ul>
+        <h2>Metadata</h2>
+        <p><b>Number of Rows:</b> <span th:text="${numRows}"></span></p>
+        <p><b>Number of Columns:</b> <span th:text="${numColumns}"></span></p>
+        <p><b>Column Headers:</b> <span th:text="${columnHeaders}"></span></p>
+        <h2>Data</h2>
+        <div class="table-responsive table-wrap">
+            <!--display object list-->
+            <table class="table table-striped" th:if="${status}">
+                <thead>
+                <tr>
+                    <th>Row #</th>
+                    <th th:each="columnHeader, i : ${columnHeaders}">
+                        <span th:text="${columnHeader}"></span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="row, i : ${rows}">
+                    <th scope="row" th:text="${i.index + 1}"></th>
+                    <td th:each="columnHeader, j: ${columnHeaders}">
+                        <span th:text="${row.get(columnHeader)}"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>

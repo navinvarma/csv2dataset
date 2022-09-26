@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ManageController {
@@ -39,20 +41,38 @@ public class ManageController {
 
     @PostMapping("/manage-dataset")
     public String manageDataset(@RequestParam("datasetSelected") String datasetSelected, Model model) throws IOException {
-        File folder = new File(basePath);
-        String[] files = folder.list();
-        File selectedFile = new File(basePath + datasetSelected);
+        try {
+            File folder = new File(basePath);
+            String[] files = folder.list();
+            File selectedFile = new File(basePath + datasetSelected);
 
-        DatumReader<GenericRecord> datumReader = new GenericDatumReader<>();
-        DataFileReader<GenericRecord> dataFileReader = new DataFileReader<>(selectedFile, datumReader);
-        Schema schema = dataFileReader.getSchema();
-        List<Schema.Field> fields = schema.getFields();
+            DatumReader<GenericRecord> datumReader = new GenericDatumReader<>();
+            DataFileReader<GenericRecord> dataFileReader = new DataFileReader<>(selectedFile, datumReader);
+            Schema schema = dataFileReader.getSchema();
+            Map<String, Object> props = schema.getObjectProps();
+            Integer numRows = (Integer) props.get("numRows");
+            Integer numColumns = (Integer) props.get("numColumns");
+            List<String> columnHeaders = (List<String>) props.get("columnHeaders");
+            List<GenericRecord> rows = new ArrayList<>();
 
-        model.addAttribute("files", files);
-        model.addAttribute("datasetSelected", datasetSelected);
-        model.addAttribute("fields", fields);
+            while (dataFileReader.iterator().hasNext()) {
+                GenericRecord record = dataFileReader.iterator().next();
+                rows.add(record);
+            }
 
+            model.addAttribute("files", files);
+            model.addAttribute("datasetSelected", datasetSelected);
+            model.addAttribute("columnHeaders", columnHeaders);
+            model.addAttribute("numColumns", numColumns);
+            model.addAttribute("numRows", numRows);
+            model.addAttribute("rows", rows);
+            model.addAttribute("status", true);
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            model.addAttribute("message", "An error occurred while processing the Avro file.");
+            model.addAttribute("status", false);
+        }
         return "manage-dataset";
 
     }

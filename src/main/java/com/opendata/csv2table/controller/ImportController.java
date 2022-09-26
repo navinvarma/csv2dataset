@@ -81,6 +81,10 @@ public class ImportController {
                             ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_16LE,
                             ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE)))) {
 
+                String datasetName = file.getOriginalFilename();
+                datasetName = datasetName.replaceAll(" ", "_");
+                datasetName = datasetName.replaceAll("-", "_");
+
                 // re-initialize bean
                 currentImportedDataset = new ImportedDataset();
 
@@ -100,16 +104,17 @@ public class ImportController {
                 int numRows = csvData.size();
 
                 // save users list on model
-                currentImportedDataset.setDatasetName(file.getName());
+                currentImportedDataset.setDatasetName(datasetName);
                 currentImportedDataset.setCsvData(csvData);
                 currentImportedDataset.setColumnHeaders(columnHeaders);
                 currentImportedDataset.setNumColumns(numColumns);
                 currentImportedDataset.setNumRows(numRows);
+                model.addAttribute("datasetName", currentImportedDataset.getDatasetName());
                 model.addAttribute("csvDataPreview", csvDataPreview);
-                model.addAttribute("columnHeaders", columnHeaders);
+                model.addAttribute("columnHeaders", currentImportedDataset.getColumnHeaders());
                 model.addAttribute("genericColumnHeaders", genericColumnHeaders);
-                model.addAttribute("numColumns", numColumns);
-                model.addAttribute("numRows", numRows);
+                model.addAttribute("numColumns", currentImportedDataset.getNumRows());
+                model.addAttribute("numRows", currentImportedDataset.getNumColumns());
                 model.addAttribute("status", true);
 
             } catch (Exception ex) {
