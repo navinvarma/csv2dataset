@@ -30,12 +30,15 @@
             </div>
         </form>
     </div>
+    <hr>
     <div th:if="${datasetSelected}">
         <h2><span th:text="${datasetSelected}"/></h2>
+        <hr>
         <h2>Metadata</h2>
         <p><b>Number of Rows:</b> <span th:text="${numRows}"></span></p>
         <p><b>Number of Columns:</b> <span th:text="${numColumns}"></span></p>
         <p><b>Column Headers:</b> <span th:text="${columnHeaders}"></span></p>
+        <hr>
         <h2>Data</h2>
         <div class="table-responsive table-wrap">
             <!--display object list-->
