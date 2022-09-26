@@ -18,9 +18,16 @@
 <div class="container-fluid">
     <div th:insert="navbar"/>
     <h2>Import Dataset</h2>
+    This is where you can upload any CSV file to process into Avro files.
     <img th:src="@{/img/Import_Dataset.png}" width="50%" class="shadow-2-strong"/>
     <h2>Preview Dataset</h2>
+    This page shows you a preview of the rows before you process the import. It also allows you to specify a dataset
+    name and other metadata to store for the Avro schema.
     <img th:src="@{/img/Preview_Dataset.png}" width="50%" class="shadow-2-strong"/>
+    <h2>Manage Datasets</h2>
+    This page has a dropdown of all the Avro files imported. Clicking "View" shows the file metadata and full data using
+    Avro DatafileReader that makes page load very snappy.
+    <img th:src="@{/img/Manage_Datasets.png}" width="50%" class="shadow-2-strong"/>
 </div>
 </body>
 

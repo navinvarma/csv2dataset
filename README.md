@@ -61,3 +61,23 @@ This project uses
 
 Created project from [Spring Initializr](https://start.spring.io/) with the following settings:
 ![spring initialize settings](assets//spring_inializr_config.png)
+
+# Screenshots
+
+## Import Dataset
+
+This is where you can upload any CSV file to process into Avro files.
+![Import Dataset](src/main/resources/static/img/Import_Dataset.png)
+
+## Preview Dataset
+
+This page shows you a preview of the rows before you process the import. It also allows you to specify a dataset
+name and other metadata to store for the Avro schema.
+![Preview Dataset](src/main/resources/static/img/Preview_Dataset.png)
+
+## Manage Datasets
+
+This page has a dropdown of all the Avro files imported. Clicking "View" shows the file metadata and full data using
+[Avro DatafileReader](https://avro.apache.org/docs/current/api/java/org/apache/avro/file/DataFileReader.html) that makes
+page load very snappy.
+![Manage Datasets](src/main/resources/static/img/Manage_Datasets.png)
