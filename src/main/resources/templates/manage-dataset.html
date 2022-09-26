@@ -16,7 +16,27 @@
 <div class="container-fluid">
     <div th:insert="navbar"/>
     <div>
+        <form method="POST" th:action="@{/manage-dataset}">
+            <div class="form-group p3">
+                <label for="datasetSelected">Select a Dataset</label>
+                <select class="form-control" id="datasetSelected" name="datasetSelected">
+                    <option th:each="file, i : ${files}" th:selected="${datasetSelected} == ${file}? true : false">
+                        <span th:text="${file}"/>
+                    </option>
+                </select>
+            </div>
+            <div class="form-group p3">
+                <button type="submit" class="btn btn-primary">View</button>
+            </div>
+        </form>
+    </div>
+    <div th:if="${datasetSelected}">
+        <h2><span th:text="${datasetSelected}"/></h2>
+        <h4>Fields</h4>
+        <ul th:each="field, i : ${fields}">
+            <li th:text="${field}"></li>
 
+        </ul>
     </div>
 </div>
 </body>
